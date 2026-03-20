@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>First Birthday Invitation</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Comic Sans MS', cursive;
+        overflow: hidden;
+        background: linear-gradient(#ffccff, #ffe6f2);
+        text-align: center;
+    }
+
+    /* BALLOONS */
+    .balloon {
+        width: 60px;
+        height: 80px;
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -100px;
+        animation: floatUp 5s linear forwards;
+    }
+
+    @keyframes floatUp {
+        to {
+            transform: translateY(-120vh);
+        }
+    }
+
+    /* ENVELOPE */
+    .envelope {
+        width: 250px;
+        height: 150px;
+        background: #ff6666;
+        margin: 150px auto;
+        position: relative;
+        cursor: pointer;
+        display: none;
+    }
+
+    .flap {
+        width: 0;
+        height: 0;
+        border-left: 125px solid transparent;
+        border-right: 125px solid transparent;
+        border-bottom: 75px solid #ff3333;
+        position: absolute;
+        top: -75px;
+        left: 0;
+        transition: 1s;
+    }
+
+    .open .flap {
+        transform: rotateX(180deg);
+    }
+
+    /* CARD */
+    .card {
+        display: none;
+        padding: 20px;
+    }
+
+    .card img {
+        width: 200px;
+        border-radius: 20px;
+        border: 5px solid #ff6699;
+    }
+
+    h1 {
+        color: #ff0066;
+    }
+
+    .details {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+</style>
+</head>
+<body>
+
+<div id="balloons"></div>
+
+<div class="envelope" id="envelope">
+    <div class="flap"></div>
+</div>
+
+<div class="card" id="card">
+    <h1>🎉 One Year Completed 🎉</h1>
+    <img src="baby.jpg" alt="Baby">
+    <h2>You're Invited!</h2>
+
+    <div class="details">
+        📍 <b>Venue:</b><br>
+        Kandukuri Street,<br>
+        Bhaskar Nagar,<br>
+        Kadiam<br><br>
+
+        📅 <b>Date:</b> 22nd March 2026
+    </div>
+</div>
+
+<script>
+    const balloonContainer = document.getElementById("balloons");
+
+    function createBalloon() {
+        const balloon = document.createElement("div");
+        balloon.classList.add("balloon");
+
+        balloon.style.left = Math.random() * 100 + "vw";
+        balloon.style.background = `hsl(${Math.random()*360}, 70%, 60%)`;
+
+        balloonContainer.appendChild(balloon);
+
+        setTimeout(() => balloon.remove(), 5000);
+    }
+
+    // Create many balloons
+    for (let i = 0; i < 30; i++) {
+        setTimeout(createBalloon, i * 150);
+    }
+
+    // After balloons → show envelope
+    setTimeout(() => {
+        document.getElementById("envelope").style.display = "block";
+    }, 5500);
+
+    // Open envelope → show card
+    document.getElementById("envelope").onclick = function() {
+        this.classList.add("open");
+
+        setTimeout(() => {
+            this.style.display = "none";
+            document.getElementById("card").style.display = "block";
+            document.body.style.overflow = "auto";
+        }, 1000);
+    };
+</script>
+
+</body>
+</html>
